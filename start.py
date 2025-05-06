@@ -14,8 +14,14 @@ delta=0.1
 x=np.arange(xmin,xmax+delta,delta)
 y=np.arange(ymin,ymax+delta,delta)
 
-X,Y=np.meshgrid(x,y) 
+print(x)
+print(y)
+
+X,Y=np.meshgrid(x,y)
+print(X)
+print(Y)
 Z=f(X,Y)
+print(Z)
 
 fig=plt.figure()
 ax=fig.add_subplot(111,projection='3d')
