@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
-
+from math import sqrt
 
 def f(x,y):
     return (x**2-1)**2+y**2
@@ -40,5 +40,20 @@ def gradf(x, y):
     df_dy = 2 * y
     return df_dx, df_dy
 
-def descente(xinit,yinit,pas,epsilon,nmax):
-    pass
+def norme(x,y):
+    return (x**2+y**2)**0.5
+
+def descente(xinit,yinit,pas,epsilon,nmax):    
+    x=xinit
+    y=yinit
+    grad = gradf(x,y)
+    n=0
+
+    while ((n<nmax) and norme(grad[0], grad[1])):
+        x = x-pas*grad
+        y = y-pas*grad
+        grad = gradf(x,y)
+        n+=1
+    return x,y,f(x,y)
+
+print(descente(X,Y,0.1,0.1,1000))
