@@ -14,16 +14,11 @@ delta=0.1
 x=np.arange(xmin,xmax+delta,delta)
 y=np.arange(ymin,ymax+delta,delta)
 
-print("x: ", x)
-print("y: ", y)
-
 X,Y=np.meshgrid(x,y)
-print("X: ", X, len(X))
-print("Y: ", Y, len(Y))
 Z=f(X,Y)
-print("Z: ", Z)
 
-def afficherNormal():
+
+def afficherNormal(path):
     fig=plt.figure()
     ax=fig.add_subplot(111,projection='3d')
     ax.plot_surface(X,Y,Z,cmap='nipy_spectral_r')
@@ -48,12 +43,14 @@ def descente(xinit,yinit,pas,epsilon,nmax):
     y=yinit
     grad = gradf(x,y)
     n=0
+    path = [[x,y]]
 
-    while ((n<nmax) and norme(grad[0], grad[1])):
-        x = x-pas*grad
-        y = y-pas*grad
+    while ((n<nmax) and np.any(norme(grad[0], grad[1]) > epsilon)):
+        x = x - pas * grad[0]
+        y = y - pas * grad[1]
+        path.append([x,y])
         grad = gradf(x,y)
         n+=1
-    return x,y,f(x,y)
+    return path
 
-print(descente(X,Y,0.1,0.1,1000))
+afficherNormal(descente(X,Y,0.1,0.1,1000))
