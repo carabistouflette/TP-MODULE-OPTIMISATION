@@ -4,11 +4,11 @@ from mpl_toolkits.mplot3d import axes3d
 from math import sqrt
 
 def f(x, y):
-    return (x**2 - 1)**2 + y**2
+    return x**2 + y**2
 
 def gradf(x, y):
-    df_dx = 4 * x * (x**2 - 1)
-    df_dy = 2 * y
+    df_dx = 2*x
+    df_dy = 2*y
     return df_dx, df_dy
 
 def norme(x, y):
@@ -29,7 +29,7 @@ def descente(xinit, yinit, pas, epsilon, nmax):
         c.append(f(x, y))
         grad = gradf(x, y)
         n += 1
-
+    print(norme(grad[0], grad[1]))
     print(n)
     return a, b, c
 
@@ -43,7 +43,7 @@ y = np.arange(ymin, ymax + delta, delta)
 X, Y = np.meshgrid(x, y)
 Z = f(X, Y)
 
-a, b, c = descente(2, 2, 0.1, 0.1, 1000)
+a, b, c = descente(-2, 0, 2, 0.1, 100)
 
 def afficherNormal():
     fig = plt.figure()
